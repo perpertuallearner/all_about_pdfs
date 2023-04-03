@@ -1,0 +1,54 @@
+{% extends "pdfext/base.html" %}
+{% block content %}
+    <div class="content-section">
+        
+                <div class="card" >
+                    <h2 class="card-img-top">File: {{object.title}}</h2>
+                    <div class="card-body">
+                        <p class="card-text">Please review the parsed contents of the file <strong>{{object.file}}</strong></p>
+                        <p class="card-text">Once you are happy, you can press the <em>Download</em> button to download the content as a JSON file. You can go back to the file details page by pressing the <em>Back</em> button.</p>
+                        <!-- <p class="card-text" >{{object.content}}</p> -->
+                    </div>
+                  </div>
+        <form method="POST">
+            {% csrf_token %}
+             <legend class="border-bottom mb-4"><h3>Parsed Data</h3></legend>
+             <div class="d-flex">
+
+             <div class="ml-auto">
+                <!-- <button class="btn btn-outline-danger" type="submit" data_url>Download</button> -->
+                <a class="btn btn-outline-danger" href="{% url 'downloadjson' object.id %}">Download</a>
+                <a class="btn btn-outline-secondary" href="{% url 'pdfext-detail' object.id %}">Back</a>
+            </div>
+        </div>
+            <!-- <fieldset class="form-group"> -->
+               
+                   <table class="table table-hover" >
+                      <thead>
+                        <tr>
+                          <th scope="col">Key</th>
+                          <th scope="col">Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    {% for item,value in data.items %}
+                    <tr class="col-sm-8">
+                            <td>{{item | title}}</td>
+                            <td>{{value | title}}</td>
+                              <!-- <div class="form-check">-->
+                              <!--  <input class="form-check-input" type="checkbox" id="gridCheck1" checked>  -->
+                              <!--   <label class="form-check-label" for="gridCheck1">
+                                    {{ item | title}}: {{value | title}}
+                                 </label>-->
+                              <!-- </div> --> 
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+           
+            <!-- </fieldset> -->
+           
+           
+        </form>
+    </div>
+{% endblock content %}

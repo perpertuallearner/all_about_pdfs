@@ -1,0 +1,13 @@
+{% extends 'pdfext/base.html' %}
+{% block content %}
+<p>PDF's containing '{{query_string}}'</p> 
+{% for pdfext in pdfexts %}
+    <div>
+        <span> {{ pdfext.created }} </span>
+        <a href="{% url 'pdfext_detail' slug=pdfext.slug %}"><h2 class="page-title">{{ pdfext.title }}</h2></a>
+        <div class="post">
+            {{ pdfext.body|safe }}
+        </div>
+    </div>
+{% endfor %}
+{% endblock content %}
